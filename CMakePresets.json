@@ -45,5 +45,6 @@
                 "CMAKE_Fortran_COMPILER": "lfortran"
             }
         }
+
     ]
 }
