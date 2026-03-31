@@ -33,6 +33,18 @@
                 "CMAKE_INSTALL_PREFIX": "build/debug",
                 "CMAKE_Fortran_COMPILER": "gfortran"
             }
+        },
+        {
+            "name": "lfortran_debug",
+            "displayName": "lfortran debug version",
+            "description": "Builds a lfortran debug executable for swatplus",
+            "binaryDir": "build/debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "build/debug",
+                "CMAKE_Fortran_COMPILER": "lfortran"
+            }
         }
+
     ]
 }
