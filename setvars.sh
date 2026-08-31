@@ -6,6 +6,9 @@ set -x
 export FC="lfortran"
 export CC="clang"
 export CXX="clang++"
+export FPM_FC=$FC
+export FPM_CC=$CC
+export FPM_CXX=$CXX
 export CFLAGS="-I$CONDA_PREFIX/include"
 export CXXFLAGS="-I$CONDA_PREFIX/include"
 export CMAKE_PREFIX_PATH="$CONDA_PREFIX"
