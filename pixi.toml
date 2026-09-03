@@ -1,7 +1,6 @@
 [workspace]
 preview = ["pixi-build"]
-channels = ["https://prefix.dev/conda-forge", "nodefaults",
-"https://prefix.dev/pixi-build-backends",]
+channels = ["https://prefix.dev/conda-forge", "https://prefix.dev/pixi-build-backends",]
 platforms = ["win-64", "linux-64"]
 requires-pixi = ">=0.70"
 
@@ -12,44 +11,56 @@ publish = { cmd = ["pixi", "publish", "--target-platform", "{{ pixi.platform }}"
             "--target-channel", "https://prefix.dev/hydrolog", "--package-format", "conda"]}
 
 [tasks]
+clean="git clean -dfx -e '.pixi'"
 
 [dependencies]
-pixi-build-cmake = "*"
-gcc = ">=16.2.0,<16.3"
-gfortran = ">=16.2.0,<16.3"
-python = ">=3.14.7,<3.15"
+pixi-build-cmake = ">=0.4.6,<0.5"
 
 [package]
 name = "swatplus"
 version = "62.0.0"
-authors = [""]
+authors = ["https://www.ars.usda.gov"]
 description = "Soil and Water Assessment Tool (SWAT)"
 documentation = "https://swatplus.gitbook.io/docs"
 homepage = "https://swat.tamu.edu/"
-license-file = "license.txt"
+license-file = "LICENSE"
 readme = "README.md"
 repository = "https://github.com/swat-model/swatplus"
 publish = true
 
 [package.build]
 backend = { name = "pixi-build-cmake" }
-source = { url = "https://github.com/dtarb/TauDEM/archive/refs/tags/v5.5.0.tar.gz" }
-config = { extra-args = ["-DCMAKE_BUILD_TYPE=Release",] }
+#source = { url = "https://github.com/swat-model/swatplus/archive/refs/tags/62.0.0.tar.gz" }
+source = { path = "." }
+config = { extra-args = ["-DCMAKE_BUILD_TYPE=Release","-DCMAKE_INSTALL_PREFIX=build/release","-DCMAKE_Fortran_COMPILER_ID=GNU", "-DCMAKE_BUILD_WITH_INSTALL_RPATH=true"], }
 
 [package.host-dependencies."if(host_platform == 'linux-64')"]
+gcc = ">=16.2.0,<16.3"
+gfortran = ">=16.2.0,<16.3"
+python = ">=3.14.7,<3.15"
 
 [package.build-dependencies."if(host_platform == 'linux-64')"]
+gcc = ">=16.2.0,<16.3"
+gfortran = ">=16.2.0,<16.3"
+python = ">=3.14.7,<3.15"
 
 [package.run-dependencies."if(host_platform == 'linux-64')"]
+python = ">=3.14.7,<3.15"
+libgfortran = ">=16.2.0,<17"
 
 [package.host-dependencies."if(host_platform == 'win-64')"]
+gcc = ">=16.2.0,<16.3"
+gfortran = ">=16.2.0,<16.3"
+python = ">=3.14.7,<3.15"
 
 [package.build-dependencies."if(host_platform == 'win-64')"]
+gcc = ">=16.2.0,<16.3"
+gfortran = ">=16.2.0,<16.3"
+python = ">=3.14.7,<3.15"
 
 [package.run-dependencies."if(host_platform == 'win-64')"]
-
-[package.run-exports.weak]
-package = { path = "."}
+python = ">=3.14.7,<3.15"
+libgfortran = ">=16.2.0,<17"
 
 [environments]
 swatplus = {features = ["pkg-build","default"],  no-default-feature = true }
