@@ -32,7 +32,7 @@ publish = true
 backend = { name = "pixi-build-cmake" }
 #source = { url = "https://github.com/swat-model/swatplus/archive/refs/tags/62.0.0.tar.gz" }
 source = { path = "." }
-config = { extra-args = ["-DCMAKE_BUILD_TYPE=Release","-DCMAKE_INSTALL_PREFIX=build/release","-DCMAKE_Fortran_COMPILER_ID=GNU", "-DCMAKE_BUILD_WITH_INSTALL_RPATH=true"], }
+config = { extra-args = ["-DCMAKE_BUILD_TYPE=Release","-DCMAKE_Fortran_COMPILER_ID=GNU", "-DCMAKE_BUILD_WITH_INSTALL_RPATH=true"], }
 
 [package.host-dependencies."if(host_platform == 'linux-64')"]
 gcc = ">=16.2.0,<16.3"

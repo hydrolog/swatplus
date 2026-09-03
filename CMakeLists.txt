@@ -164,7 +164,7 @@ add_executable(${SWATPLUS_EXE} ${sources})
 
 #############################################################################
 # Install
-install(TARGETS ${SWATPLUS_EXE} DESTINATION RUNTIME DESTINATION ${PROJECT_SOURCE_DIR})
+install(TARGETS ${SWATPLUS_EXE} DESTINATION RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} )
 
 
 #############################################################################
