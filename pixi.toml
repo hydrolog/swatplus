@@ -13,8 +13,13 @@ publish = { cmd = ["pixi", "publish", "--target-platform", "{{ pixi.platform }}"
 [tasks]
 clean="git clean -dfx -e '.pixi'"
 
-[dependencies]
+[workspace.dependencies]
 pixi-build-cmake = ">=0.4.6,<0.5"
+python = ">=3.14.7,<3.15"
+cmake = ">=4.4.3,<5"
+ninja = ">=1.13.2,<2"
+llvm = ">=19.1.7,<24"
+flang = ">=19.1.7,<24"
 
 [package]
 name = "swatplus"
@@ -34,33 +39,26 @@ backend = { name = "pixi-build-cmake" }
 source = { path = "." }
 config = { extra-args = ["-DCMAKE_BUILD_TYPE=Release","-DCMAKE_Fortran_COMPILER_ID=GNU", "-DCMAKE_BUILD_WITH_INSTALL_RPATH=true"], }
 
-[package.host-dependencies."if(host_platform == 'linux-64')"]
-gcc = ">=16.2.0,<16.3"
-gfortran = ">=16.2.0,<16.3"
-python = ">=3.14.7,<3.15"
+[package.host-dependencies]
+flang = { workspace = true }
+llvm = { workspace = true }
 
-[package.build-dependencies."if(host_platform == 'linux-64')"]
-gcc = ">=16.2.0,<16.3"
-gfortran = ">=16.2.0,<16.3"
-python = ">=3.14.7,<3.15"
+[package.build-dependencies]
+flang = { workspace = true }
+llvm = { workspace = true }
 
-[package.run-dependencies."if(host_platform == 'linux-64')"]
-python = ">=3.14.7,<3.15"
-libgfortran = ">=16.2.0,<17"
+[package.run-dependencies]
+llvm = { workspace = true }
 
-[package.host-dependencies."if(host_platform == 'win-64')"]
-gcc = ">=16.2.0,<16.3"
-gfortran = ">=16.2.0,<16.3"
-python = ">=3.14.7,<3.15"
+[environments.swatplus]
+features = ["pkg-build","default"]
+no-default-feature = true
 
-[package.build-dependencies."if(host_platform == 'win-64')"]
-gcc = ">=16.2.0,<16.3"
-gfortran = ">=16.2.0,<16.3"
+[environments.swatplus.dependencies]
 python = ">=3.14.7,<3.15"
+cmake = ">=4.4.3,<5"
+ninja = ">=1.13.2,<2"
+llvm = ">=19.1.7,<24"
+flang = ">=19.1.7,<24"
 
-[package.run-dependencies."if(host_platform == 'win-64')"]
-python = ">=3.14.7,<3.15"
-libgfortran = ">=16.2.0,<17"
 
-[environments]
-swatplus = {features = ["pkg-build","default"],  no-default-feature = true }
